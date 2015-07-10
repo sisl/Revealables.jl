@@ -1,5 +1,5 @@
 STYLES = "div.hint {  \n    background-color: rgb(255,255,240); \n    margin: 10px;\n    padding: 10px;\n}\ndiv.answer {  \n    background-color: rgb(255,240,255); \n    margin: 10px;\n    padding: 10px;\n}\ndiv.example {  \n    background-color: rgb(240,255,255); \n    margin: 10px;\n    padding: 10px;\n}\ndiv.notes {  \n    background-color: rgb(240,240,255); \n    margin: 10px;\n    padding: 10px;\n}"
-IMPORTCSS = "@import url(\"showable.css\");\n"
+IMPORTCSS = "@import url(\"reveal-html.css\");\n"
 
 # Move read-only.js to correct location
 extdir = readall(`ipython locate nbextensions`)[1:end - 1]
@@ -12,7 +12,7 @@ run(`ipython --profile julia < read-only-setup.txt`)
 
 # Create and modify CSS files in Julia profile
 
-#download("fromRemoteURL", "showable.css")
+#download("fromRemoteURL", "reveal-html.css")
 cssFilename = Pkg.dir(readall(`ipython locate profile julia`)[1:end - 1],"static","custom","custom.css")
 touch(cssFilename)
 f = open(cssFilename)
@@ -20,7 +20,7 @@ lines = readlines(f)
 content = join(lines[1:end])
 if !contains(content, STYLES) && !contains(content, IMPORTCSS)
     insert!(lines, 1, IMPORTCSS)
-    newcssname = Pkg.dir(readall(`ipython locate profile julia`)[1:end - 1],"static","custom","showable.css")
+    newcssname = Pkg.dir(readall(`ipython locate profile julia`)[1:end - 1],"static","custom","reveal-html.css")
     touch(newcssname)
     newcssfile = open(newcssname, "w")
     for l in lines
@@ -29,8 +29,8 @@ if !contains(content, STYLES) && !contains(content, IMPORTCSS)
     end
     close(newcssfile)
     cp(newcssname, cssFilename)
-    cp("showable.css", newcssname) # delete later, mv instead
-    #mv("showable.css", newcssname)
+    cp("reveal-html.css", newcssname) # delete later, mv instead
+    #mv("reveal-html.css", newcssname)
 end
 close(f)
 

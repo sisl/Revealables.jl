@@ -1,18 +1,18 @@
-module NBShowable
+module RevealHTML
 
 using Reactive
 using Interact
 
 import Base.writemime
 
-export Showable
+export RevealHTML
 
-type Showable
+type RevealHTML
     show::Bool
     html::ASCIIString
 end
 
-function Base.writemime(stream, ::MIME"text/html", x::Showable)
+function Base.writemime(stream, ::MIME"text/html", x::RevealHTML)
     if x.show
         println(stream, x.html)
     else
