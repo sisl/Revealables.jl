@@ -23,7 +23,6 @@ if !contains(content, STYLES) && !contains(content, IMPORTCSS)
     newcssfile = open(newcssname, "w")
     for l in lines
         write(newcssfile, l)
-        println(l)
     end
     close(newcssfile)
     cp(newcssname, cssFilename)
