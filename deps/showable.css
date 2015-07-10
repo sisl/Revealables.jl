@@ -1,0 +1,20 @@
+div.hint {  
+    background-color: rgb(255,255,240); 
+    margin: 10px;
+    padding: 10px;
+}
+div.answer {  
+    background-color: rgb(255,240,255); 
+    margin: 10px;
+    padding: 10px;
+}
+div.example {  
+    background-color: rgb(240,255,255); 
+    margin: 10px;\
+    padding: 10px;
+}
+div.notes {  
+    background-color: rgb(240,240,255); 
+    margin: 10px;
+    padding: 10px;
+}
