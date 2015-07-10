@@ -8,7 +8,7 @@ It is useful for hiding and revealing answers to practice problems.
 ## Installation
 ```julia
 Pkg.clone("URL")
-Pkg.build("NBShowable")
+Pkg.build("RevealHTML")
 ```
 
 Installation requires standard IPython and IJulia installation with default directory structure.
@@ -16,7 +16,7 @@ Installation requires standard IPython and IJulia installation with default dire
 ## Use
 Hide and show blocks of HTML through code like this:
 
-```f = NBShowable(false, """
+```f = RevealHTML(false, """
     <div class="answer">  # Other defined div classes are "hint", "notes", and "example".
     <b>Any HTML can go here!</b>
     </div>
