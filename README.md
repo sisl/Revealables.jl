@@ -16,7 +16,8 @@ Installation requires standard IPython and IJulia installation with default dire
 ## Use
 Hide and show blocks of HTML through code like this:
 
-```f = RevealHTML(false, """
+```julia
+f = RevealHTML(false, """
     <div class="answer">  # Other defined div classes are "hint", "notes", and "example".
     <b>Any HTML can go here!</b>
     </div>
@@ -25,6 +26,7 @@ Hide and show blocks of HTML through code like this:
 @manipulate for n in togglebutton(; label="Show/Hide Answer", value=false, signal=Input(false))
     f.show = n
     f
-end```
+end
+```
 
 Please see the example notebook for more details.
