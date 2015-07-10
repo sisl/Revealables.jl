@@ -11,8 +11,6 @@ run(`ipython --profile julia read-only-setup.txt`)
 
 
 # Create and modify CSS files in Julia profile
-
-#download("fromRemoteURL", "reveal-html.css")
 cssFilename = Pkg.dir(readall(`ipython locate profile julia`)[1:end - 1],"static","custom","custom.css")
 touch(cssFilename)
 f = open(cssFilename)
