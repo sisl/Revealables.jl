@@ -1,13 +1,13 @@
 STYLES = "div.hint {  \n    background-color: rgb(255,255,240); \n    margin: 10px;\n    padding: 10px;\n}\ndiv.answer {  \n    background-color: rgb(255,240,255); \n    margin: 10px;\n    padding: 10px;\n}\ndiv.example {  \n    background-color: rgb(240,255,255); \n    margin: 10px;\n    padding: 10px;\n}\ndiv.notes {  \n    background-color: rgb(240,240,255); \n    margin: 10px;\n    padding: 10px;\n}"
 IMPORTCSS = "@import url(\"reveal-html.css\");\n"
 
-# Move read-only.js to correct location
+# Move hide_input.js to correct location
 extdir = readall(`ipython locate nbextensions`)[1:end - 1]
 profiledir = readall(`ipython locate profile julia`)[1:end - 1]
-download("https://raw.githubusercontent.com/ipython-contrib/IPython-notebook-extensions/95fae02cf0e51a9851bdfe8b54b23ac74d6cbf7c/usability/read-only.js", Pkg.dir(extdir,"nbextensions","read-only.js"))
+download("https://raw.githubusercontent.com/ipython-contrib/IPython-notebook-extensions/master/usability/hide_input.js", Pkg.dir(extdir,"nbextensions","hide_input.js"))
 
-# Include read-only.js in JSON for julia profile
-run(`ipython --profile julia read-only-setup.txt`)
+# Include hide_input.js in JSON for julia profile
+run(`ipython --profile julia hide_input_setup.txt`)
 
 
 # Create and modify CSS files in Julia profile
