@@ -29,4 +29,4 @@ f = RevealHTML(false, """
 end
 ```
 
-Please see the example notebook for more details.
+Please see the [example notebook](example/Show and Hide Answers!.ipynb) for more details.
