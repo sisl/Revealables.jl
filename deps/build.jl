@@ -6,8 +6,8 @@ extdir = readall(`ipython locate nbextensions`)[1:end - 1]
 profiledir = readall(`ipython locate profile julia`)[1:end - 1]
 download("https://raw.githubusercontent.com/ipython-contrib/IPython-notebook-extensions/95fae02cf0e51a9851bdfe8b54b23ac74d6cbf7c/usability/read-only.js", Pkg.dir(extdir,"nbextensions","read-only.js"))
 
-# Install read-only.js in julia profile
-run(`ipython --profile julia < read-only-setup.txt`)
+# Include read-only.js in JSON for julia profile
+run(`ipython --profile julia read-only-setup.txt`)
 
 
 # Create and modify CSS files in Julia profile
@@ -29,8 +29,7 @@ if !contains(content, STYLES) && !contains(content, IMPORTCSS)
     end
     close(newcssfile)
     cp(newcssname, cssFilename)
-    cp("reveal-html.css", newcssname) # delete later, mv instead
-    #mv("reveal-html.css", newcssname)
+    cp("reveal-html.css", newcssname)
 end
 close(f)
 
