@@ -1,4 +1,4 @@
-# NBShowable
+# RevealHTML
 
 This module allows HTML to be hidden and revealed by pressing a button in an IJulia notebook.
 
