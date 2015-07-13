@@ -1,5 +1,5 @@
 STYLES = "div.hint {  \n    background-color: rgb(255,255,240); \n    margin: 10px;\n    padding: 10px;\n}\ndiv.answer {  \n    background-color: rgb(255,240,255); \n    margin: 10px;\n    padding: 10px;\n}\ndiv.example {  \n    background-color: rgb(240,255,255); \n    margin: 10px;\n    padding: 10px;\n}\ndiv.notes {  \n    background-color: rgb(240,240,255); \n    margin: 10px;\n    padding: 10px;\n}"
-IMPORTCSS = "@import url(\"reveal-html.css\");\n"
+IMPORTCSS = "@import url(\"revealables.css\");\n"
 
 # Move hide_input.js to correct location
 extdir = readall(`ipython locate nbextensions`)[1:end - 1]
@@ -18,7 +18,7 @@ lines = readlines(f)
 content = join(lines[1:end])
 if !contains(content, STYLES) && !contains(content, IMPORTCSS)
     insert!(lines, 1, IMPORTCSS)
-    newcssname = Pkg.dir(readall(`ipython locate profile julia`)[1:end - 1],"static","custom","reveal-html.css")
+    newcssname = Pkg.dir(readall(`ipython locate profile julia`)[1:end - 1],"static","custom","revealables.css")
     touch(newcssname)
     newcssfile = open(newcssname, "w")
     for l in lines
@@ -26,7 +26,7 @@ if !contains(content, STYLES) && !contains(content, IMPORTCSS)
     end
     close(newcssfile)
     cp(newcssname, cssFilename)
-    cp("reveal-html.css", newcssname)
+    cp("revealables.css", newcssname)
 end
 close(f)
 
