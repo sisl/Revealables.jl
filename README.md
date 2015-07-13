@@ -7,7 +7,7 @@ It is useful for hiding and revealing answers to practice problems.
 
 ## Installation
 ```julia
-Pkg.clone("git@github.com:sisl/Revealables.jl.git")
+Pkg.clone("https://github.com/sisl/Revealables.jl.git")
 Pkg.build("Revealables")
 ```
 
