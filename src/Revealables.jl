@@ -41,8 +41,8 @@ end
 
 function Base.writemime(stream, ::MIME"text/html", x::Revealable)
     if x.show
-        if x.class ==""
-            println(stream, string("""<div>""", x.html, """</div>"""))
+        if x.divclass ==""
+           println(stream, string("""<div>""", x.html, """</div>"""))
         else
             println(stream, string("""<div class='""", x.divclass, """'>""", x.html, """</div>"""))
         end
