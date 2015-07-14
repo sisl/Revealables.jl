@@ -1,7 +1,6 @@
-The NBShowable.jl package is licensed under the MIT "Expat" License:
+The Revealables.jl package is licensed under the MIT "Expat" License:
 
-> Copyright (c) 2015:
->  * Renee Trochet
+> Copyright (c) 2015: Stanford Intelligent Systems Laboratory.
 >
 > Permission is hereby granted, free of charge, to any person obtaining
 > a copy of this software and associated documentation files (the
