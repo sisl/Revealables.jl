@@ -11,14 +11,14 @@ run(`ipython --profile julia hide_input_setup.txt`)
 
 
 # Create and modify CSS files in Julia profile
-cssFilename = Pkg.dir(readall(`ipython locate profile julia`)[1:end - 1],"static","custom","custom.css")
+cssFilename = Pkg.dir(profiledir,"static","custom","custom.css")
 touch(cssFilename)
 f = open(cssFilename)
 lines = readlines(f)
 content = join(lines[1:end])
 if !contains(content, STYLES) && !contains(content, IMPORTCSS)
     insert!(lines, 1, IMPORTCSS)
-    newcssname = Pkg.dir(readall(`ipython locate profile julia`)[1:end - 1],"static","custom","revealables.css")
+    newcssname = Pkg.dir(profiledir,"static","custom","revealables.css")
     touch(newcssname)
     newcssfile = open(newcssname, "w")
     for l in lines
