@@ -39,22 +39,9 @@ end;
 
 
 
-function Base.write(stream, ::MIME"text/markdown", x::Revealable)
-    if x.show
-        if x.divclass ==""
-            println(stream, string("""<div>""", x.markdown, """</div>"""))
-        else
-            println(stream, string("""<div class='""", x.divclass, """'>""", x.markdown, """</div>"""))
-        end
-    else
-        println(stream, ""
-            )
-    end
-end
-
 function Base.writemime(stream, ::MIME"text/markdown", x::Revealable)
     if x.show
-        println(stream, string(x.markdown))
+        println(stream, x.markdown)
     else
         println(stream, ""
             )
