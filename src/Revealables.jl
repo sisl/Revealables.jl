@@ -11,24 +11,24 @@ export revealable
 
 
 type Revealable
-    html::ASCIIString
+    markdown::ASCIIString
     divclass::ASCIIString
     show::Bool
 end
 
-Revealable(html::ASCIIString, divclass::ASCIIString = "") = Revealable(html, divclass, false)
+Revealable(markdown::ASCIIString, divclass::ASCIIString = "") = Revealable(markdown, divclass, false);
 
 
 
-function revealable(html::ASCIIString, divclass::ASCIIString, show::Bool)
-    x = Revealable(html, divclass, show)
+function revealable(markdown::ASCIIString, divclass::ASCIIString, show::Bool)
+    x = Revealable(markdown, divclass, show)
     revealable(x)
-end
+end;
 
-function revealable(html::ASCIIString, divclass::ASCIIString = "")
-    x = Revealable(html, divclass, false)
+function revealable(markdown::ASCIIString, divclass::ASCIIString = "")
+    x = Revealable(markdown, divclass, false)
     revealable(x)
-end
+end;
 
 function revealable(x::Revealable)
 	@manipulate for n in togglebutton(; label=string("Show/Hide", x.divclass == "" ? "" : string(" ", uppercase(x.divclass[1]),x.divclass[2:end])), value=x.show, signal=Input(x.show))
@@ -42,9 +42,9 @@ end;
 function Base.write(stream, ::MIME"text/markdown", x::Revealable)
     if x.show
         if x.divclass ==""
-            println(stream, string("""<div>""", x.html, """</div>"""))
+            println(stream, string("""<div>""", x.markdown, """</div>"""))
         else
-            println(stream, string("""<div class='""", x.divclass, """'>""", x.html, """</div>"""))
+            println(stream, string("""<div class='""", x.divclass, """'>""", x.markdown, """</div>"""))
         end
     else
         println(stream, ""
@@ -54,11 +54,7 @@ end
 
 function Base.writemime(stream, ::MIME"text/markdown", x::Revealable)
     if x.show
-        if x.divclass ==""
-            println(stream, string("""<div>""", x.html, """</div>"""))
-        else
-            println(stream, string("""<div class='""", x.divclass, """'>""", x.html, """</div>"""))
-        end
+        println(stream, string(x.markdown))
     else
         println(stream, ""
             )
