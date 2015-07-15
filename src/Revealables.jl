@@ -3,7 +3,7 @@ module Revealables
 using Reactive
 using Interact
 
-import Base.writemime
+import Base.writemime, Base.write
 
 export Revealable
 export revealable
@@ -35,20 +35,32 @@ function revealable(x::Revealable)
 	    x.show = n
 	    x
 	end
-end
+end;
 
 
 
-function Base.writemime(stream, ::MIME"text/html", x::Revealable)
+function Base.write(stream, ::MIME"text/markdown", x::Revealable)
     if x.show
         if x.divclass ==""
-           println(stream, string("""<div>""", x.html, """</div>"""))
+            println(stream, string("""<div>""", x.html, """</div>"""))
         else
             println(stream, string("""<div class='""", x.divclass, """'>""", x.html, """</div>"""))
         end
     else
-        println(stream, """        
-            """
+        println(stream, ""
+            )
+    end
+end
+
+function Base.writemime(stream, ::MIME"text/markdown", x::Revealable)
+    if x.show
+        if x.divclass ==""
+            println(stream, string("""<div>""", x.html, """</div>"""))
+        else
+            println(stream, string("""<div class='""", x.divclass, """'>""", x.html, """</div>"""))
+        end
+    else
+        println(stream, ""
             )
     end
 end
