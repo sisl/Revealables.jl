@@ -1,4 +1,4 @@
-from IPython.html.services.config import ConfigManager
+from IPython.html.services.config.manager import ConfigManager
 ip = get_ipython()
 cm = ConfigManager(parent=ip, profile_dir=ip.profile_dir.location)
 cm.update('notebook', {'load_extensions': {'hide_input': True}})
