@@ -17,16 +17,16 @@ type Revealable
     show::Bool
 end
 
-Revealable(content::MD, divclass::ASCIIString = "") = Revealable(content, divclass, false)
+Revealable(content::Markdown.MD, divclass::ASCIIString = "") = Revealable(content, divclass, false)
 
 
 
-function revealable(content::MD, divclass::ASCIIString, show::Bool)
+function revealable(content::Markdown.MD, divclass::ASCIIString, show::Bool)
     x = Revealable(content, divclass, show)
     revealable(x)
 end
 
-function revealable(content::MD, divclass::ASCIIString = "")
+function revealable(content::Markdown.MD, divclass::ASCIIString = "")
     x = Revealable(content, divclass, false)
     revealable(x)
 end
