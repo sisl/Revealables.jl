@@ -43,7 +43,6 @@ end
 function Base.writemime(stream, ::MIME"text/html", x::Revealable)
     if x.show
             display(x.content)
-        end
     else
         display("")
     end
