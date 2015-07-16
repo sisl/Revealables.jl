@@ -13,7 +13,7 @@ install = "install"
 if ipvers < v"3.0"
     warn("IPython 3 is required for Revealables.
         \nYou have IPython $ipvers. 
-        \nThis installer will download hide-input.js to your nbextensions folder, 
+        \nThis installer will download hide_input.js to your nbextensions folder, 
         \nbut you will need to manually configure your notebook to include 
         \nit in your notebook extensions.
         \nContinue installation? yes/[no]")
@@ -43,6 +43,26 @@ download("https://raw.githubusercontent.com/ipython-contrib/IPython-notebook-ext
 
 if ipvers >= v"3.0"
     run(`ipython --profile $profile hide_input_setup.txt`)
+else
+    JS =  "// activate extensions only after Notebook is initialized\nrequire(["base/js/events"], function (events) {\n$([IPython.events]).on("app_initialized.NotebookApp", function () {\n    /* load your extension here */\n    IPython.load_extensions('hide_input');\n    });\n});"
+    #open custom.js file, 
+    jsFilename = Pkg.dir(profiledir,"static","custom","custom.js")
+    touch(jsFilename)
+    f = open(jsFilename)
+    lines = readlines(f)
+    #############################################################
+    # TODO: check whether extensions exist already before writing
+    #############################################################
+    push!(lines, JS)
+    tmpjsname = Pkg.dir(profiledir,"static","custom","tmp.js")
+    touch(newjsname)
+    tmpjsfile = open(tmpjsname, "w")
+    for l in lines
+        write(tmpjsfile, l)
+    end
+    close(tmpjsfile)
+    close(f)
+    mv(tmpjsname, jsFilename)
 end
 
 # Create and modify CSS files in Julia profile
