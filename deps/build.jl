@@ -10,7 +10,7 @@ end
 
 install = "install"
 
-if ipvers <= v"3.0"
+if ipvers < v"3.0"
     warn("IPython 3 is required for Revealables.
         \nYou have IPython $ipvers. 
         \nThis installer will download hide-input.js to your nbextensions folder, 
@@ -37,11 +37,13 @@ end
 
 extdir = chomp(readall(`ipython locate nbextensions`))
 profiledir = chomp(readall(`ipython locate profile $profile`))
+
 download("https://raw.githubusercontent.com/ipython-contrib/IPython-notebook-extensions/master/usability/hide_input.js", Pkg.dir(extdir,"nbextensions","hide_input.js"))
 
-# Include hide_input.js in JSON for julia profile
-run(`ipython --profile $profile hide_input_setup.txt`)
 
+if ipvers >= v"3.0"
+    run(`ipython --profile $profile hide_input_setup.txt`)
+end
 
 # Create and modify CSS files in Julia profile
 cssFilename = Pkg.dir(profiledir,"static","custom","custom.css")
