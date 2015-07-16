@@ -2,6 +2,7 @@ module Revealables
 
 using Reactive
 using Interact
+using Markdown
 
 import Base.writemime
 
@@ -11,22 +12,22 @@ export revealable
 
 
 type Revealable
-    html::ASCIIString
-    divclass::ASCIIString
+    content::Markdown.MD
+    divclass::ASCIIString      # delete?
     show::Bool
 end
 
-Revealable(html::ASCIIString, divclass::ASCIIString = "") = Revealable(html, divclass, false)
+Revealable(content::MD, divclass::ASCIIString = "") = Revealable(content, divclass, false)
 
 
 
-function revealable(html::ASCIIString, divclass::ASCIIString, show::Bool)
-    x = Revealable(html, divclass, show)
+function revealable(content::MD, divclass::ASCIIString, show::Bool)
+    x = Revealable(content, divclass, show)
     revealable(x)
 end
 
-function revealable(html::ASCIIString, divclass::ASCIIString = "")
-    x = Revealable(html, divclass, false)
+function revealable(content::MD, divclass::ASCIIString = "")
+    x = Revealable(content, divclass, false)
     revealable(x)
 end
 
@@ -41,15 +42,10 @@ end
 
 function Base.writemime(stream, ::MIME"text/html", x::Revealable)
     if x.show
-        if x.divclass ==""
-           println(stream, string("""<div>""", x.html, """</div>"""))
-        else
-            println(stream, string("""<div class='""", x.divclass, """'>""", x.html, """</div>"""))
+            display(x.content)
         end
     else
-        println(stream, """        
-            """
-            )
+        display("")
     end
 end
 
