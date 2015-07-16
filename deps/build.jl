@@ -1,5 +1,6 @@
 STYLES = "div.hint {  \n    background-color: rgb(255,255,240); \n    margin: 10px;\n    padding: 10px;\n}\ndiv.answer {  \n    background-color: rgb(255,240,255); \n    margin: 10px;\n    padding: 10px;\n}\ndiv.example {  \n    background-color: rgb(240,255,255); \n    margin: 10px;\n    padding: 10px;\n}\ndiv.notes {  \n    background-color: rgb(240,240,255); \n    margin: 10px;\n    padding: 10px;\n}"
 IMPORTCSS = "@import url(\"revealables.css\");\n"
+JS =  "// activate extensions only after Notebook is initialized\nrequire([\"base/js/events\"], function (events) {\n$([IPython.events]).on(\"app_initialized.NotebookApp\", function () {\n    /* load your extension here */\n    IPython.load_extensions('hide_input');\n    });\n});"
 
 # Test for IPython 3 (required)
 const ipvers = try 
@@ -44,24 +45,36 @@ download("https://raw.githubusercontent.com/ipython-contrib/IPython-notebook-ext
 if ipvers >= v"3.0"
     run(`ipython --profile $profile hide_input_setup.txt`)
 else
-    JS =  "// activate extensions only after Notebook is initialized\nrequire(["base/js/events"], function (events) {\n$([IPython.events]).on("app_initialized.NotebookApp", function () {\n    /* load your extension here */\n    IPython.load_extensions('hide_input');\n    });\n});"
     #open custom.js file, 
     jsFilename = Pkg.dir(profiledir,"static","custom","custom.js")
     touch(jsFilename)
     f = open(jsFilename)
     lines = readlines(f)
-    #############################################################
-    # TODO: check whether extensions exist already before writing
-    #############################################################
-    push!(lines, JS)
+    close(f)
+
+    foundextensions = false
+    foundhide_input = false
+    
     tmpjsname = Pkg.dir(profiledir,"static","custom","tmp.js")
     touch(newjsname)
     tmpjsfile = open(tmpjsname, "w")
+
     for l in lines
+        if foundextensions && (!foundhide_input && chomp(l) == chomp("    });\n"))
+            write(tmpjsfile, "    IPython.load_extensions('hide_input');\n")
+            foundhide_input = true
+        end
         write(tmpjsfile, l)
+        if chomp(l) == chomp("$([IPython.events]).on(\"app_initialized.NotebookApp\", function () {\n")
+            foundextensions = true
+        elseif chomp(l) == chomp("    IPython.load_extensions('hide_input');\n")
+            foundhide_input = true
+        end
+    end
+    if !foundextensions
+        write(tmpjsfile, JS)
     end
     close(tmpjsfile)
-    close(f)
     mv(tmpjsname, jsFilename)
 end
 

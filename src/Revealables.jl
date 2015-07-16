@@ -31,10 +31,10 @@ function revealable(html::ASCIIString, divclass::ASCIIString = "")
 end
 
 function revealable(x::Revealable)
-	@manipulate for n in togglebutton(; label=string("Show/Hide", x.divclass == "" ? "" : string(" ", uppercase(x.divclass[1]),x.divclass[2:end])), value=x.show, signal=Input(x.show))
-	    x.show = n
-	    x
-	end
+    @manipulate for n in togglebutton(; label=string("Show/Hide", x.divclass == "" ? "" : string(" ", uppercase(x.divclass[1]),x.divclass[2:end])), value=x.show, signal=Input(x.show))
+        x.show = n
+        x
+    end
 end
 
 
