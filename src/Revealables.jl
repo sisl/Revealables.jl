@@ -41,7 +41,7 @@ end
 
 
 
-function Base.display(d::Base.REPL.REPLDisplay, x::Revealable)
+function Base.display(x::Revealable)
     if x.show
         display(x.content)
     else
