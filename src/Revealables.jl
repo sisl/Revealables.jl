@@ -17,9 +17,11 @@ type Revealable
     show::Bool
 end
 
-
+Revealable(content::ASCIIString, divclass::ASCIIString, show:Bool) = Revealable(Markdown.parse(content), divclass, show)
 
 Revealable(content::Markdown.MD, divclass::ASCIIString = "") = Revealable(content, divclass, false)
+
+Revealable(content::ASCIIString, divclass::ASCIIString = "") = Revealable(Markdown.parse(content), divclass, false)
 
 
 function revealable(content::Markdown.MD, divclass::ASCIIString, show::Bool)
@@ -27,8 +29,19 @@ function revealable(content::Markdown.MD, divclass::ASCIIString, show::Bool)
     revealable(x)
 end
 
+function revealable(content::ASCIIString, divclass::ASCIIString, show::Bool)
+    x = Revealable(Markdown.parse(content), divclass, show)
+    revealable(x)
+end
+
+
 function revealable(content::Markdown.MD, divclass::ASCIIString = "")
     x = Revealable(content, divclass, false)
+    revealable(x)
+end
+
+function revealable(content::ASCIIString, divclass::ASCIIString = "")
+    x = Revealable(Markdown.parse(content), divclass, false)
     revealable(x)
 end
 
@@ -38,7 +51,6 @@ function revealable(x::Revealable)
         x
     end
 end
-
 
 
 function Base.display(x::Revealable)
