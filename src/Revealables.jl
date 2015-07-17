@@ -4,7 +4,7 @@ using Reactive
 using Interact
 using Markdown
 
-import Base.writemime
+import Base.display
 
 export Revealable
 export revealable
@@ -17,8 +17,9 @@ type Revealable
     show::Bool
 end
 
-Revealable(content::Markdown.MD, divclass::ASCIIString = "") = Revealable(content, divclass, false)
 
+
+Revealable(content::Markdown.MD, divclass::ASCIIString = "") = Revealable(content, divclass, false)
 
 
 function revealable(content::Markdown.MD, divclass::ASCIIString, show::Bool)
@@ -40,9 +41,9 @@ end
 
 
 
-function Base.writemime(stream, ::MIME"text/html", x::Revealable)
+function Base.display(d::Base.REPL.REPLDisplay, x::Revealable)
     if x.show
-            display(x.content)
+        display(x.content)
     else
         display("")
     end
