@@ -5,6 +5,7 @@ using Interact
 using Markdown
 
 import Base.display
+import Base.writemime
 
 export Revealable
 export revealable
@@ -53,7 +54,7 @@ function revealable(x::Revealable)
 end
 
 
-function Base.display(x::Revealable)
+function display(x::Revealable)
     if x.show
         display(x.content)
     else
@@ -61,6 +62,13 @@ function Base.display(x::Revealable)
     end
 end
 
+function writemime(stream, ::MIME"text/markdown", x::Revealable)
+   if x.show
+        x.content
+    else
+        println("")
+    end
+end
 
 
 end # module
