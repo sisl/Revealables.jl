@@ -17,7 +17,7 @@ type Revealable
     show::Bool
 end
 
-Revealable(content::ASCIIString, divclass::ASCIIString, show:Bool) = Revealable(Markdown.parse(content), divclass, show)
+Revealable(content::ASCIIString, divclass::ASCIIString, show::Bool) = Revealable(Markdown.parse(content), divclass, show)
 
 Revealable(content::Markdown.MD, divclass::ASCIIString = "") = Revealable(content, divclass, false)
 
