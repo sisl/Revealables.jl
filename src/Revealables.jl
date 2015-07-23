@@ -13,29 +13,29 @@ export revealable
 
 type Revealable
     markdown::ASCIIString
-    divclass::ASCIIString
+    label::ASCIIString
     show::Bool
 end
 
-Revealable(markdown::ASCIIString, divclass::ASCIIString = "") = Revealable(markdown, divclass, false);
+Revealable(markdown::ASCIIString, label::ASCIIString = "Show/Hide") = Revealable(markdown, label, false);
 
 
 
-function revealable(markdown::ASCIIString, divclass::ASCIIString, show::Bool)
-    x = Revealable(markdown, divclass, show)
+function revealable(markdown::ASCIIString, label::ASCIIString, show::Bool)
+    x = Revealable(markdown, label, show)
     revealable(x)
 end;
 
-function revealable(markdown::ASCIIString, divclass::ASCIIString = "")
-    x = Revealable(markdown, divclass, false)
+function revealable(markdown::ASCIIString, label::ASCIIString = "Show/Hide")
+    x = Revealable(markdown, label, false)
     revealable(x)
 end;
 
 function revealable(x::Revealable)
-	@manipulate for n in togglebutton(; label=string("Show/Hide", x.divclass == "" ? "" : string(" ", uppercase(x.divclass[1]),x.divclass[2:end])), value=x.show, signal=Input(x.show))
-	    x.show = n
-	    display(x)
-	end
+    @manipulate for n in togglebutton(; label = x.label), value=x.show, signal=Input(x.show))
+        x.show = n
+        display(x)
+    end
 end;
 
 
