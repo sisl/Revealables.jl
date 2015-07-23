@@ -2,10 +2,9 @@ module Revealables
 
 using Reactive
 using Interact
-using Markdown
+using Markdown # will be in Base from v0.4 onwards
 
-import Base.display
-import Base.writemime
+import Base.writemime, Base.write, Base.display
 
 export Revealable
 export revealable
@@ -13,62 +12,50 @@ export revealable
 
 
 type Revealable
-    content::Markdown.MD
-    divclass::ASCIIString      # delete?
+    markdown::ASCIIString
+    divclass::ASCIIString
     show::Bool
 end
 
-Revealable(content::ASCIIString, divclass::ASCIIString, show::Bool) = Revealable(Markdown.parse(content), divclass, show)
-
-Revealable(content::Markdown.MD, divclass::ASCIIString = "") = Revealable(content, divclass, false)
-
-Revealable(content::ASCIIString, divclass::ASCIIString = "") = Revealable(Markdown.parse(content), divclass, false)
+Revealable(markdown::ASCIIString, divclass::ASCIIString = "") = Revealable(markdown, divclass, false);
 
 
-function revealable(content::Markdown.MD, divclass::ASCIIString, show::Bool)
-    x = Revealable(content, divclass, show)
+
+function revealable(markdown::ASCIIString, divclass::ASCIIString, show::Bool)
+    x = Revealable(markdown, divclass, show)
     revealable(x)
-end
+end;
 
-function revealable(content::ASCIIString, divclass::ASCIIString, show::Bool)
-    x = Revealable(Markdown.parse(content), divclass, show)
+function revealable(markdown::ASCIIString, divclass::ASCIIString = "")
+    x = Revealable(markdown, divclass, false)
     revealable(x)
-end
-
-
-function revealable(content::Markdown.MD, divclass::ASCIIString = "")
-    x = Revealable(content, divclass, false)
-    revealable(x)
-end
-
-function revealable(content::ASCIIString, divclass::ASCIIString = "")
-    x = Revealable(Markdown.parse(content), divclass, false)
-    revealable(x)
-end
+end;
 
 function revealable(x::Revealable)
-    @manipulate for n in togglebutton(; label=string("Show/Hide", x.divclass == "" ? "" : string(" ", uppercase(x.divclass[1]),x.divclass[2:end])), value=x.show, signal=Input(x.show))
-        x.show = n
-        x
-    end
-end
+	@manipulate for n in togglebutton(; label=string("Show/Hide", x.divclass == "" ? "" : string(" ", uppercase(x.divclass[1]),x.divclass[2:end])), value=x.show, signal=Input(x.show))
+	    x.show = n
+	    display(x)
+	end
+end;
 
 
-function display(x::Revealable)
-    if x.show
-        display(x.content)
-    else
-        display("")
-    end
-end
 
 function writemime(stream, ::MIME"text/markdown", x::Revealable)
-   if x.show
-        x.content
+    if x.show
+        println(stream, x.markdown)
     else
-        println("")
+        println(stream, ""
+            )
     end
 end
 
+function display(stream, x::Revealable)
+    if x.show
+        Markdown.display(x.content)
+    else
+        println(stream, ""
+            )
+    end
+end
 
 end # module
