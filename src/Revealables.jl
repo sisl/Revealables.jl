@@ -32,7 +32,7 @@ function revealable(markdown::ASCIIString, label::ASCIIString = "Show/Hide")
 end;
 
 function revealable(x::Revealable)
-    @manipulate for n in togglebutton(; label = x.label), value=x.show, signal=Input(x.show))
+    @manipulate for n in togglebutton(; label = x.label, value=x.show, signal=Input(x.show))
         x.show = n
         x
     end
