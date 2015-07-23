@@ -4,7 +4,7 @@ using Reactive
 using Interact
 using Markdown # will be in Base from v0.4 onwards
 
-import Base.writemime, Base.write
+import Base.writemime, Base.write, Base.display
 
 export Revealable
 export revealable
