@@ -20,12 +20,13 @@ end
 Revealable(markdown::ASCIIString, label::ASCIIString = "Show/Hide") = Revealable(markdown, label, false);
 
 
-
+# works only if using writemime (not display); otherwise will never run with show == true
 function revealable(markdown::ASCIIString, label::ASCIIString, show::Bool)
     x = Revealable(markdown, label, show)
     revealable(x)
 end;
 
+# works only if using writemime (not display); otherwise will never run with show == true
 function revealable(markdown::ASCIIString, label::ASCIIString = "Show/Hide")
     x = Revealable(markdown, label, false)
     revealable(x)
