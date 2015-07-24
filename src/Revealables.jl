@@ -52,7 +52,7 @@ end
 
 function display(stream, x::Revealable)
     if x.show
-        Markdown.display(x.content)
+        x
     else
         println(stream, ""
             )
