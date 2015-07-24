@@ -41,21 +41,19 @@ end;
 
 
 
-function writemime(stream, ::MIME"text/markdown", x::Revealable)
+function writemime(io:IO, ::MIME"text/markdown", x::Revealable)
     if x.show
-        println(stream, x.markdown)
+        println(io, x.markdown)
     else
-        println(stream, ""
-            )
+        println(io, "")
     end
 end
 
-function display(stream, x::Revealable)
+function display(io::IO, x::Revealable)
     if x.show
         x
     else
-        println(stream, ""
-            )
+        println(io, "")
     end
 end
 
