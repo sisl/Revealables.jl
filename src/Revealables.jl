@@ -41,7 +41,7 @@ end;
 
 
 
-function writemime(io:IO, ::MIME"text/markdown", x::Revealable)
+function writemime(io::IO, ::MIME"text/markdown", x::Revealable)
     if x.show
         println(io, x.markdown)
     else
