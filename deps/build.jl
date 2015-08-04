@@ -1,5 +1,3 @@
-STYLES = "div.hint {  \n    background-color: rgb(255,255,240); \n    margin: 10px;\n    padding: 10px;\n}\ndiv.answer {  \n    background-color: rgb(255,240,255); \n    margin: 10px;\n    padding: 10px;\n}\ndiv.example {  \n    background-color: rgb(240,255,255); \n    margin: 10px;\n    padding: 10px;\n}\ndiv.notes {  \n    background-color: rgb(240,240,255); \n    margin: 10px;\n    padding: 10px;\n}"
-IMPORTCSS = "@import url(\"revealables.css\");\n"
 JS =  "// activate extensions only after Notebook is initialized\nrequire([\"base/js/events\"], function (events) {\n$([IPython.events]).on(\"app_initialized.NotebookApp\", function () {\n    /* load your extension here */\n    IPython.load_extensions('hide_input');\n    });\n});"
 
 # Test for IPython 3 (required)
@@ -77,23 +75,3 @@ else
     close(tmpjsfile)
     mv(tmpjsname, jsFilename)
 end
-
-# Create and modify CSS files in Julia profile
-cssFilename = Pkg.dir(profiledir,"static","custom","custom.css")
-touch(cssFilename)
-f = open(cssFilename)
-lines = readlines(f)
-content = join(lines[1:end])
-if !contains(content, STYLES) && !contains(content, IMPORTCSS)
-    insert!(lines, 1, IMPORTCSS)
-    newcssname = Pkg.dir(profiledir,"static","custom","revealables.css")
-    touch(newcssname)
-    newcssfile = open(newcssname, "w")
-    for l in lines
-        write(newcssfile, l)
-    end
-    close(newcssfile)
-    cp(newcssname, cssFilename)
-    cp("revealables.css", newcssname)
-end
-close(f)
