@@ -1,14 +1,12 @@
 module Revealables
 
-using Reactive
 using Interact
-using Markdown # will be in Base from v0.4 onwards
+using Reactive
 
-import Base.writemime, Base.write, Base.display
+import Base.writemime, Base.display
 
 export Revealable
 export revealable
-
 
 
 type Revealable
