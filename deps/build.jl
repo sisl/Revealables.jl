@@ -56,7 +56,7 @@ else
     foundhide_input = false
     
     tmpjsname = Pkg.dir(profiledir,"static","custom","tmp.js")
-    touch(newjsname)
+    touch(tmpjsname)
     tmpjsfile = open(tmpjsname, "w")
 
     for l in lines
