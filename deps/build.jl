@@ -1,4 +1,4 @@
-JS =  "// activate extensions only after Notebook is initialized\nrequire([\"base/js/events\"], function (events) {\n$([IPython.events]).on(\"app_initialized.NotebookApp\", function () {\n    /* load your extension here */\n    IPython.load_extensions('hide_input');\n    });\n});"
+JS =  "// activate extensions only after Notebook is initialized\nrequire([\"base/js/events\"], function (events) {\n\$([IPython.events]).on(\"app_initialized.NotebookApp\", function () {\n    /* load your extension here */\n    IPython.load_extensions('hide_input');\n    });\n});"
 
 # Test for IPython 3 (required)
 const ipvers = try 
@@ -63,16 +63,19 @@ else
         if foundextensions && (!foundhide_input && chomp(l) == chomp("    });\n"))
             write(tmpjsfile, "    IPython.load_extensions('hide_input');\n")
             foundhide_input = true
+            println("Installed hide-input")
         end
         write(tmpjsfile, l)
         if chomp(l) == chomp("$([IPython.events]).on(\"app_initialized.NotebookApp\", function () {\n")
             foundextensions = true
         elseif chomp(l) == chomp("    IPython.load_extensions('hide_input');\n")
             foundhide_input = true
+            println("hide-input.js already installed; nothing to do")
         end
     end
     if !foundextensions
         write(tmpjsfile, JS)
+        println("Installed hide-input.js")
     end
     close(tmpjsfile)
     mv(tmpjsname, jsFilename)
