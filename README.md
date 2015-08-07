@@ -1,6 +1,6 @@
 # Revealables
 
-This module allows HTML to be hidden and revealed by pressing a button in an IJulia notebook.
+This module allows Markdown (and most HTML) to be hidden and revealed by pressing a button in an IJulia notebook.
 
 It is useful for hiding and revealing answers to practice problems.
 
