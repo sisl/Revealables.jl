@@ -14,7 +14,7 @@ if ipvers < v"3.0"
         "You have IPython $ipvers.\n" *
         "This installer will download hide_input.js to your nbextensions folder,\n" *
         "but you will need to manually check your custom.js file to\n" *
-        "that hide_input is installed correctly.\n" *
+        "ensure that hide_input is installed correctly.\n" *
         "Instructions at https://github.com/ipython-contrib/\n" *
         "      IPython-notebook-extensions/wiki#adding-the-extension-to-customjs\n" *
         "Continue installation? yes/[no]")
@@ -42,7 +42,7 @@ profiledir = chomp(readall(`ipython locate profile $profile`))
 download("https://raw.githubusercontent.com/ipython-contrib/IPython-notebook-extensions/master/usability/hide_input.js", Pkg.dir(extdir,"nbextensions","hide_input.js"))
 
 
-if ipvers >= v"3.0"
+if ipvers < v"3.0"
     run(`ipython --profile $profile hide_input_setup.txt`)
 else
     #open custom.js file, 
@@ -63,7 +63,7 @@ else
         if foundextensions && (!foundhide_input && chomp(l) == chomp("    });\n"))
             write(tmpjsfile, "    IPython.load_extensions('hide_input');\n")
             foundhide_input = true
-            println("Installed hide-input")
+            println("Installed hide-input.js")
         end
         write(tmpjsfile, l)
         if chomp(l) == chomp("\$([IPython.events]).on(\"app_initialized.NotebookApp\", function () {\n")
