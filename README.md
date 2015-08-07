@@ -11,13 +11,13 @@ Pkg.clone("https://github.com/sisl/Revealables.jl.git")
 Pkg.build("Revealables")
 ```
 
-Installation requires standard IPython and IJulia installation with default directory structure.
+Normal installation requires standard IPython and IJulia installation with default directory structure.
 
 ## Use
-Hide and show blocks of HTML through code like this:
+Hide and show blocks of Markdown through code like this:
 
 ```julia
-revealable("""<p>Any HTML can go here!</p>""", "classNameForCSS")
+revealable("""Any Markdown can go here!""", "Button Label")
 ```
 
 Please see the [example notebook](example/Show and Hide Answers!.ipynb) for more details.
