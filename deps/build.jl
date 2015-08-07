@@ -66,7 +66,7 @@ else
             println("Installed hide-input")
         end
         write(tmpjsfile, l)
-        if chomp(l) == chomp("$([IPython.events]).on(\"app_initialized.NotebookApp\", function () {\n")
+        if chomp(l) == chomp("\$([IPython.events]).on(\"app_initialized.NotebookApp\", function () {\n")
             foundextensions = true
         elseif chomp(l) == chomp("    IPython.load_extensions('hide_input');\n")
             foundhide_input = true
