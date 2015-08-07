@@ -10,14 +10,14 @@ end
 install = "install"
 
 if ipvers < v"3.0"
-    warn("IPython 3 is required for Revealables.
-        \nYou have IPython $ipvers. 
-        \nThis installer will download hide_input.js to your nbextensions folder, 
-        \nbut you will need to manually check your custom.js file to
-        \nthat hide_input is installed correctly.
-        \nInstructions at https://github.com/ipython-contrib/
-        \n      IPython-notebook-extensions/wiki#adding-the-extension-to-customjs
-        \nContinue installation? yes/[no]")
+    warn("IPython 3 is required for Revealables.\n" *
+        "You have IPython $ipvers.\n" *
+        "This installer will download hide_input.js to your nbextensions folder,\n" *
+        "but you will need to manually check your custom.js file to\n" *
+        "that hide_input is installed correctly.\n" *
+        "Instructions at https://github.com/ipython-contrib/\n" *
+        "      IPython-notebook-extensions/wiki#adding-the-extension-to-customjs\n" *
+        "Continue installation? yes/[no]")
     while install != "yes"
         install = chomp(readline(STDIN))
         if install == "no" || install == ""
