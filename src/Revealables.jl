@@ -22,20 +22,20 @@ Revealable(markdown::ASCIIString, label::ASCIIString = "Show/Hide") = Revealable
 function revealable(markdown::ASCIIString, label::ASCIIString, show::Bool)
     x = Revealable(markdown, label, show)
     revealable(x)
-end;
+end
 
 # works only if using writemime (not display); otherwise will never run with show == true
 function revealable(markdown::ASCIIString, label::ASCIIString = "Show/Hide")
     x = Revealable(markdown, label, false)
     revealable(x)
-end;
+end
 
 function revealable(x::Revealable)
     @manipulate for n in togglebutton(; label = x.label, value=x.show, signal=Input(x.show))
         x.show = n
         x
     end
-end;
+end
 
 
 
