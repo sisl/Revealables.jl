@@ -7,24 +7,26 @@ import Base.writemime, Base.display
 
 export Revealable
 export revealable
+export encode!
+export encode
+export decode!
+export decode
 
 
 type Revealable
     markdown::ASCIIString
     label::ASCIIString
     show::Bool
+    encoded::Bool
 end
 
-Revealable(markdown::ASCIIString, label::ASCIIString = "Show/Hide") = Revealable(markdown, label, false);
+Revealable(markdown::ASCIIString, label::ASCIIString = "Show/Hide", show = false, encoded = false) = Revealable(markdown, label, show, encoded)
 
-
-# works only if using writemime (not display); otherwise will never run with show == true
 function revealable(markdown::ASCIIString, label::ASCIIString, show::Bool)
     x = Revealable(markdown, label, show)
     revealable(x)
 end
 
-# works only if using writemime (not display); otherwise will never run with show == true
 function revealable(markdown::ASCIIString, label::ASCIIString = "Show/Hide")
     x = Revealable(markdown, label, false)
     revealable(x)
@@ -37,6 +39,50 @@ function revealable(x::Revealable)
     end
 end
 
+
+function rot(text::ASCIIString, key::Int)
+    map(text) do c
+        if 'a' <= c <= 'z'
+            char( mod(c - 'a' + key, 26) + 'a')
+        elseif 'A' <= c <= 'Z'
+            char( mod(c - 'A' + key, 26) + 'A')
+        else
+            c
+        end
+    end
+end
+
+function encode!(x::Revealable, password::ASCIIString)
+    if x.encoded
+        x
+    else
+        key = sum(password)
+        x.markdown = rot(x.markdown, key)
+        x.encoded = true
+        x
+    end
+end
+
+function encode(x::Revealable, password::ASCIIString)
+    r = Revealable(x.markdown, x.label, x.show)
+    encode!(r, password)
+end
+
+function decode!(x::Revealable, password::ASCIIString)
+    if x.encoded
+        key = 26 - sum(password)
+        x.markdown = x.markdown = rot(x.markdown, key)
+        x.encoded = false
+        x
+    else
+        x
+    end
+end
+
+function decode(x::Revealable, password::ASCIIString)
+    r = Revealable(x.markdown, x.label, x.show)
+    decode!(r, password)
+end
 
 
 function writemime(io::IO, ::MIME"text/markdown", x::Revealable)
