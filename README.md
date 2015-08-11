@@ -1,9 +1,8 @@
 # Revealables
 
-This module allows Markdown (and most HTML) to be hidden and revealed by pressing a button in an IJulia notebook.
+This module allows Markdown (and most HTML) to be hidden and revealed by pressing a button in an IJulia notebook. You can also encode and decode the content using a Caesar cipher.
 
-It is useful for hiding and revealing answers to practice problems.
-
+`Revealables` is useful for hiding and revealing answers to practice problems. When you choose, you can give students the password so they can decode the answers.
 
 ## Installation
 ```julia
