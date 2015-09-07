@@ -43,9 +43,11 @@ end
 function rot(text::ASCIIString, key::Int)
     map(text) do c
         if 'a' <= c <= 'z'
-            char( mod(c - 'a' + key, 26) + 'a')
+            char(mod(c - 'a' + key, 26) + 'a')
         elseif 'A' <= c <= 'Z'
-            char( mod(c - 'A' + key, 26) + 'A')
+            char(mod(c - 'A' + key, 26) + 'A')
+        elseif '&' <= c <= '?'
+            char(mod(c - '&' + key, 26) + '&')
         else
             c
         end
