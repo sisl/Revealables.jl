@@ -6,11 +6,11 @@ This module allows Markdown (and most HTML) to be hidden and revealed by pressin
 
 ## Installation
 ```julia
-Pkg.clone("https://github.com/sisl/Revealables.jl.git")
+Pkg.add("Revealables")
 Pkg.build("Revealables")
 ```
 
-Normal installation requires standard IPython and IJulia installation with default directory structure.
+Normal installation requires standard IPython (version 3 or higher) and IJulia installation with default directory structure.
 
 ## Use
 Hide and show blocks of Markdown through code like this:
