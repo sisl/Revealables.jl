@@ -1,5 +1,3 @@
-__precompile__()
-
 module Revealables
 
 using Interact
@@ -12,8 +10,7 @@ export encode
 export decode!
 export decode
 
-
-type Revealable
+mutable struct Revealable
     markdown::String
     label::String
     show::Bool
@@ -33,12 +30,15 @@ function revealable(markdown::String, label::String = "Show/Hide")
 end
 
 function revealable(x::Revealable)
+    toggle(; label = x.label, value=x.show, signal=Signal(x.show))
+end
+
+function revealable(x::Revealable)
     @manipulate for n in togglebutton(; label = x.label, value=x.show, signal=Signal(x.show))
         x.show = n
         x
     end
 end
-
 
 function rot(text::String, key::Int)
     map(text) do c

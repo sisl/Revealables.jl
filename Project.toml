@@ -11,3 +11,10 @@ Interact = "c601a237-2ae4-5e1e-952c-7a85b0c7eef1"
 julia = "1"
 Reactive = "0.8"
 Interact = "0.10"
+
+[extras]
+NBInclude = "0db19996-df87-5ea3-a455-e3a50d440464"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["NBInclude", "Test"]
