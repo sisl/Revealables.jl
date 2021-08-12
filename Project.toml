@@ -1,0 +1,13 @@
+name = "Revealables"
+uuid = "afebb100-fbba-11eb-0f85-e5391c189ae2"
+repo = "https://github.com/sisl/Revealables.jl.git"
+version = "0.1.0"
+
+[deps]
+Reactive = "a223df75-4e93-5b7c-acf9-bdd599c0f4de"
+Interact = "c601a237-2ae4-5e1e-952c-7a85b0c7eef1"
+
+[compat]
+julia = "1"
+Reactive = "0.8"
+Interact = "0.10"
