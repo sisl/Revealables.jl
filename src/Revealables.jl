@@ -30,11 +30,7 @@ function revealable(markdown::String, label::String = "Show/Hide")
 end
 
 function revealable(x::Revealable)
-    toggle(; label = x.label, value=x.show, signal=Signal(x.show))
-end
-
-function revealable(x::Revealable)
-    @manipulate for n in togglebutton(; label = x.label, value=x.show, signal=Signal(x.show))
+    @manipulate for n in toggle(x.label; value=x.show)
         x.show = n
         x
     end
