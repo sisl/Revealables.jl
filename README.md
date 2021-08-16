@@ -1,12 +1,15 @@
 # Revealables
 
+[![Build Status](https://github.com/sisl/Revealables.jl/workflows/CI/badge.svg)](https://github.com/sisl/Revealables.jl/actions)
+[![codecov](https://codecov.io/gh/sisl/Revealables.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/sisl/Revealables.jl)
+
 This module allows Markdown (and most HTML) to be hidden and revealed by pressing a button in an Jupyter notebook. You can also encode and decode the content using a Caesar cipher.
 
 `Revealables` is useful for hiding and revealing answers to practice problems. When you choose, you can give students the password so they can decode the answers.
 
 ## Installation
 ```julia
-Pkg.add("Revealables")
+] add Revealables
 ```
 
 You will generally want to use Revealables.jl with the [hide_input](http://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/hide_input/readme.html) Jupyter extension installed. This extension hides the code cells. Revealables will reveal the output when a button is pressed. If the extension is not installed, then the code will not be hidden. You can unhide the code cells by clicking on the chevron-up icon.
